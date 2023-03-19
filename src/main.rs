@@ -1,24 +1,26 @@
 use std::io; // import a library for user input
 
 fn convert_f(far: i32) -> i32 {
-    (far - 32 ) * (5/9)
+    (far - 32) * 5/9
 }
 
 fn convert_c(cel: i32) -> i32 {
-    (cel * (9/5)) + 32
+    cel * 9/5 + 32
 }
 
 
 fn int_input() -> i32 {
-    let mut number = String::new();
+    let number = loop {
+        let mut number = String::new();
 
-    io::stdin()
-        .read_line(&mut number)
-        .expect("failed to read");
+        io::stdin()
+            .read_line(&mut number)
+            .expect("failed to read");
     
-    let number: i32 = match number.trim().parse() {
-        Ok(num) => num,
-        Err(_) => 0
+        match number.trim().parse() {
+            Ok(num) => {break num},
+            Err(_) => continue
+        };
     };
 
     return number
